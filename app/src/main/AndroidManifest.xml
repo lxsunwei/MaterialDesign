@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.designdemo">
+    package="com.materialdesigndemo">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".module.MainActivity"
+            android:name="com.materialdesigndemo.module.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
         </activity>
 
         <activity
-            android:name=".module.ButtonColorActivity"
+            android:name="com.materialdesigndemo.module.ButtonColorActivity"
             android:screenOrientation="portrait" />
 
     </application>

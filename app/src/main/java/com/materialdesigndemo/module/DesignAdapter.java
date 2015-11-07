@@ -1,4 +1,4 @@
-package com.designdemo.module;
+package com.materialdesigndemo.module;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.designdemo.R;
-import com.designdemo.model.DesignItem;
+import com.materialdesigndemo.R;
+import com.materialdesigndemo.model.DesignItem;
 
 import java.util.List;
 

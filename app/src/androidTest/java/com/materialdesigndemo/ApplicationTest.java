@@ -1,4 +1,4 @@
-package com.designdemo;
+package com.materialdesigndemo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
