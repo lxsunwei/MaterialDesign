@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas.add(new DesignItem("0", "ButtonColor"));
 
-        for (int i = 1; i < 20; i++) {
-            mDatas.add(new DesignItem(i + "", i + ""));
-        }
+        mDatas.add(new DesignItem("1", "PercentLayout"));
+
+        mDatas.add(new DesignItem("2", "CustomTabs"));
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(

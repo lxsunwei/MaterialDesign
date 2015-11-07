@@ -2,9 +2,10 @@ package com.materialdesigndemo.module;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,13 +59,28 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.equals(designItem.name, "ButtonColor")) {
-                    Intent viewFlipper = new Intent(mContext, ButtonColorActivity.class);
-                    mContext.startActivity(viewFlipper);
+                switch (designItem.name) {
+                    case "ButtonColor":
+                        Intent viewFlipper = new Intent(mContext, ButtonColorActivity.class);
+                        mContext.startActivity(viewFlipper);
+                        break;
+                    case "PercentLayout":
+                        Intent percentLayout = new Intent(mContext, PercentLayoutActivity.class);
+                        mContext.startActivity(percentLayout);
+                        break;
+                    case "CustomTabs":
+                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                        builder.setToolbarColor(mContext.getResources().getColor(
+                                R.color.colorPrimary));
+                        builder.setShowTitle(true);
+                        CustomTabsIntent customTabsIntent = builder.build();
+                        customTabsIntent.launchUrl((MainActivity) mContext,
+                                Uri.parse("https://www.baidu.com"));
+                        break;
                 }
+
             }
         });
-
     }
 
     @Override

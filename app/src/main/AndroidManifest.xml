@@ -18,7 +18,11 @@
         </activity>
 
         <activity
-            android:name="com.materialdesigndemo.module.ButtonColorActivity"
+            android:name=".module.ButtonColorActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.PercentLayoutActivity"
             android:screenOrientation="portrait" />
 
     </application>
