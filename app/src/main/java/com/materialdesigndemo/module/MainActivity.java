@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas.add(new DesignItem("2", "CustomTabs"));
 
+        mDatas.add(new DesignItem("3", "DataBinding"));
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(
                 MainActivity.this, LinearLayoutManager.VERTICAL, false));

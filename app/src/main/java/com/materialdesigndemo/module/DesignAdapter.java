@@ -77,6 +77,10 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                         customTabsIntent.launchUrl((MainActivity) mContext,
                                 Uri.parse("https://www.baidu.com"));
                         break;
+                    case "DataBinding":
+                        Intent dataBinding = new Intent(mContext, DataBindingActivity.class);
+                        mContext.startActivity(dataBinding);
+                        break;
                 }
 
             }
