@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.materialdesigndemo.R;
 import com.materialdesigndemo.model.DesignItem;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
     private List<DesignItem> mDatas;
     private CollapsingToolbarLayout mToolbarLayout;
     private DrawerLayout mDrawerLayout;
@@ -51,11 +53,36 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas.add(new DesignItem("3", "DataBinding"));
 
+        for (int i = 0; i < 10; i++) {
+            mDatas.add(new DesignItem("tmp", "tmp"));
+        }
+
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(
-                MainActivity.this, LinearLayoutManager.VERTICAL, false));
+        mLayoutManager = new LinearLayoutManager(
+                MainActivity.this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         DesignAdapter adapter = new DesignAdapter(mDatas);
         mRecyclerView.setAdapter(adapter);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = mLayoutManager.getChildCount();
+                int totalItemCount = mLayoutManager.getItemCount();
+                int lastItemPosition = ((LinearLayoutManager)mLayoutManager)
+                        .findFirstVisibleItemPosition();
+                if ((visibleItemCount + lastItemPosition) >= totalItemCount) {
+                    Toast.makeText(MainActivity.this, "加载更多...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
