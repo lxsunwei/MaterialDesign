@@ -63,26 +63,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         DesignAdapter adapter = new DesignAdapter(mDatas);
         mRecyclerView.setAdapter(adapter);
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int visibleItemCount = mLayoutManager.getChildCount();
-                int totalItemCount = mLayoutManager.getItemCount();
-                int lastItemPosition = ((LinearLayoutManager)mLayoutManager)
-                        .findFirstVisibleItemPosition();
-                if ((visibleItemCount + lastItemPosition) >= totalItemCount) {
-                    Toast.makeText(MainActivity.this, "加载更多...", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
