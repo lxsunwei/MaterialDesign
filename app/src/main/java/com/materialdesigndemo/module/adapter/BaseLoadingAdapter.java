@@ -4,10 +4,12 @@ import android.support.v4.util.CircularArray;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private static final int TYPE_LOADING_ITEM = 1;
     //加载viewHolder
     private LoadingViewHolder mLoadingViewHolder;
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     //数据集
     private CircularArray<T> mTs;
 
@@ -127,6 +130,10 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 }
             });
         }
+
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+            mStaggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+        }
     }
 
     /**
@@ -181,12 +188,14 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
         public TextView tvLoading;
+        public LinearLayout llyLoading;
 
         public LoadingViewHolder(View view) {
             super(view);
 
             progressBar = (ProgressBar) view.findViewById(R.id.progress_loading);
             tvLoading = (TextView) view.findViewById(R.id.tv_loading);
+            llyLoading = (LinearLayout) view.findViewById(R.id.lly_loading);
         }
     }
 
@@ -217,6 +226,16 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
         int type = getItemViewType(position);
         if (type == TYPE_NORMAL_ITEM) {
             onBindNormalViewHolder(holder, position);
+        } else {
+            if (mStaggeredGridLayoutManager != null) {
+                StaggeredGridLayoutManager.LayoutParams layoutParams =
+                        new StaggeredGridLayoutManager.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setFullSpan(true);
+
+                mLoadingViewHolder.llyLoading.setLayoutParams(layoutParams);
+            }
         }
     }
 

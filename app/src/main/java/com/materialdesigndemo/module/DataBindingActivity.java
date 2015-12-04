@@ -15,7 +15,7 @@ import com.materialdesigndemo.model.User;
 /**
  * Created by sunwei on 2015/11/9.
  * Email: lx_sunwei@163.com.
- * Description:
+ * Description: 数据绑定
  */
 public class DataBindingActivity extends AppCompatActivity {
 

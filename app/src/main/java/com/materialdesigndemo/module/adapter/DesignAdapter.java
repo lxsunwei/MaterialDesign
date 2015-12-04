@@ -38,7 +38,7 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
             super(view);
 
             tvDesign = (TextView) view.findViewById(R.id.tv_design);
-            cardView = (CardView) view.findViewById(R.id.cardView);
+            cardView = (CardView) view.findViewById(R.id.cardView_designer);
         }
     }
 
