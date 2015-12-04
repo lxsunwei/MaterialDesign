@@ -1,4 +1,4 @@
-package com.materialdesigndemo.module;
+package com.materialdesigndemo.module.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,11 @@ import android.widget.TextView;
 
 import com.materialdesigndemo.R;
 import com.materialdesigndemo.model.DesignItem;
+import com.materialdesigndemo.module.ButtonColorActivity;
+import com.materialdesigndemo.module.DataBindingActivity;
+import com.materialdesigndemo.module.LoadingActivity;
+import com.materialdesigndemo.module.MainActivity;
+import com.materialdesigndemo.module.PercentLayoutActivity;
 
 import java.util.List;
 
@@ -59,16 +64,16 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (designItem.name) {
-                    case "ButtonColor":
+                switch (designItem.id) {
+                    case "0": //ButtonColor
                         Intent viewFlipper = new Intent(mContext, ButtonColorActivity.class);
                         mContext.startActivity(viewFlipper);
                         break;
-                    case "PercentLayout":
+                    case "1": //PercentLayout
                         Intent percentLayout = new Intent(mContext, PercentLayoutActivity.class);
                         mContext.startActivity(percentLayout);
                         break;
-                    case "CustomTabs":
+                    case "2": //CustomTabs
                         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                         builder.setToolbarColor(mContext.getResources().getColor(
                                 R.color.colorPrimary));
@@ -77,9 +82,13 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                         customTabsIntent.launchUrl((MainActivity) mContext,
                                 Uri.parse("https://www.baidu.com"));
                         break;
-                    case "DataBinding":
+                    case "3": //DataBinding
                         Intent dataBinding = new Intent(mContext, DataBindingActivity.class);
                         mContext.startActivity(dataBinding);
+                        break;
+                    case "4": //Loading
+                        Intent loading = new Intent(mContext, LoadingActivity.class);
+                        mContext.startActivity(loading);
                         break;
                 }
 

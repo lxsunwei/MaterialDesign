@@ -11,10 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.materialdesigndemo.R;
 import com.materialdesigndemo.model.DesignItem;
+import com.materialdesigndemo.module.adapter.DesignAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas.add(new DesignItem("3", "DataBinding"));
 
-        for (int i = 0; i < 10; i++) {
-            mDatas.add(new DesignItem("tmp", "tmp"));
-        }
+        mDatas.add(new DesignItem("4", "RecycleView Loading More"));
 
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(

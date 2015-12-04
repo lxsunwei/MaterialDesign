@@ -3,6 +3,7 @@
     package="com.materialdesigndemo">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -30,6 +31,10 @@
 
         <activity
             android:name=".module.DataBindingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.LoadingActivity"
             android:screenOrientation="portrait" />
 
     </application>
