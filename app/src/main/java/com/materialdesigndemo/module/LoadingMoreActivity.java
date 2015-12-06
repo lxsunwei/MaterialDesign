@@ -20,7 +20,7 @@ import com.materialdesigndemo.module.adapter.BaseLoadingAdapter;
  * Email: lx_sunwei@163.com.
  * Description: recycleView 加载更多
  */
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingMoreActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -37,7 +37,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
 
-        mToolbar.setTitle("Loading");
+        mToolbar.setTitle("Loading More");
 
         mDatas = new CircularArray<>();
 
@@ -45,13 +45,16 @@ public class LoadingActivity extends AppCompatActivity {
             mDatas.addLast(new DesignItem("" + i, "" + i));
         }
 
-        mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        /*mLayoutManager = new LinearLayoutManager(
+                LoadingMoreActivity.this, LinearLayoutManager.VERTICAL, false);*/
 
         /*mLayoutManager = new GridLayoutManager(
-                LoadingActivity.this, 3, GridLayoutManager.VERTICAL, false);*/
+                LoadingMoreActivity.this, 3, GridLayoutManager.VERTICAL, false);*/
 
-        /*mLayoutManager = new LinearLayoutManager(
-                LoadingActivity.this, LinearLayoutManager.VERTICAL, false);*/
+        mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+
+
+
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 

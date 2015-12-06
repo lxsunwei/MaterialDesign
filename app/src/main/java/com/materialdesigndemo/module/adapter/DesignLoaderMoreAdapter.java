@@ -51,13 +51,12 @@ public class DesignLoaderMoreAdapter extends BaseLoadingAdapter<DesignItem> {
         DesignViewHolder viewHolder = (DesignViewHolder)holder;
         DesignItem designItem = mDesignItems.get(position);
         if (position == 10) {
+            //设置瀑布流的条目大小
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(260, 360);
             lp.setMargins(10, 40, 10, 80);
             viewHolder.cardView.setLayoutParams(lp);
         }
 
         viewHolder.textView.setText(designItem.name);
-
-
     }
 }

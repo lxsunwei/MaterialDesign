@@ -34,7 +34,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".module.LoadingActivity"
+            android:name=".module.LoadingMoreActivity"
             android:screenOrientation="portrait" />
 
     </application>
