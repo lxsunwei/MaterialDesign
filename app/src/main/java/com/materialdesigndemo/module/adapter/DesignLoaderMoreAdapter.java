@@ -13,7 +13,7 @@ import com.materialdesigndemo.model.DesignItem;
 /**
  * Created by sunwei on 2015/12/4.
  * Email: lx_sunwei@163.com.
- * Description:
+ * Description: 滑动到底部加载更多
  */
 public class DesignLoaderMoreAdapter extends BaseLoadingAdapter<DesignItem> {
 
