@@ -33,4 +33,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:percent:23.1.1'
     compile 'com.android.support:customtabs:23.1.1'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
 }
