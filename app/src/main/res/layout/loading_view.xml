@@ -4,6 +4,7 @@
     android:layout_height="40dp"
     android:orientation="horizontal"
     android:gravity="center"
+    android:id="@+id/lly_loading"
     android:paddingBottom="8dp">
 
     <ProgressBar

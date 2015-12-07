@@ -19,6 +19,11 @@ import com.materialdesigndemo.module.adapter.DesignAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by sunwei on 2015/12/4.
+ * Email: lx_sunwei@163.com.
+ * Description: 主页
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;

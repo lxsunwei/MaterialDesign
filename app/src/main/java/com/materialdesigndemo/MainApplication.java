@@ -1,4 +1,4 @@
-package com.materialdesigndemo.module;
+package com.materialdesigndemo;
 
 import android.app.Application;
 

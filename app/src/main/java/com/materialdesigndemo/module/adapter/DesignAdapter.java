@@ -15,7 +15,7 @@ import com.materialdesigndemo.R;
 import com.materialdesigndemo.model.DesignItem;
 import com.materialdesigndemo.module.ButtonColorActivity;
 import com.materialdesigndemo.module.DataBindingActivity;
-import com.materialdesigndemo.module.LoadingActivity;
+import com.materialdesigndemo.module.LoadingMoreActivity;
 import com.materialdesigndemo.module.MainActivity;
 import com.materialdesigndemo.module.PercentLayoutActivity;
 
@@ -38,7 +38,7 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
             super(view);
 
             tvDesign = (TextView) view.findViewById(R.id.tv_design);
-            cardView = (CardView) view.findViewById(R.id.cardView);
+            cardView = (CardView) view.findViewById(R.id.cardView_designer);
         }
     }
 
@@ -87,7 +87,7 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                         mContext.startActivity(dataBinding);
                         break;
                     case "4": //Loading
-                        Intent loading = new Intent(mContext, LoadingActivity.class);
+                        Intent loading = new Intent(mContext, LoadingMoreActivity.class);
                         mContext.startActivity(loading);
                         break;
                 }

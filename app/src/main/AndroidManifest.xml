@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:name=".module.MainApplication"
+        android:name=".MainApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -34,7 +34,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".module.LoadingActivity"
+            android:name=".module.LoadingMoreActivity"
             android:screenOrientation="portrait" />
 
     </application>

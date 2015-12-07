@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.util.CircularArray;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 
 import com.materialdesigndemo.R;
@@ -16,13 +18,13 @@ import com.materialdesigndemo.module.adapter.BaseLoadingAdapter;
 /**
  * Created by sunwei on 2015/12/4.
  * Email: lx_sunwei@163.com.
- * Description:
+ * Description: recycleView 加载更多
  */
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingMoreActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
-    private GridLayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager mLayoutManager;
     private DesignLoaderMoreAdapter mDesignLoaderMoreAdapter;
     private CircularArray<DesignItem> mDatas;
 
@@ -35,14 +37,25 @@ public class LoadingActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
 
-        mToolbar.setTitle("Loading");
+        mToolbar.setTitle("Loading More");
 
         mDatas = new CircularArray<>();
 
         for (int i = 0; i < 29; i++) {
             mDatas.addLast(new DesignItem("" + i, "" + i));
         }
-        mLayoutManager = new GridLayoutManager(LoadingActivity.this, 3, GridLayoutManager.VERTICAL, false);
+
+        /*mLayoutManager = new LinearLayoutManager(
+                LoadingMoreActivity.this, LinearLayoutManager.VERTICAL, false);*/
+
+        /*mLayoutManager = new GridLayoutManager(
+                LoadingMoreActivity.this, 3, GridLayoutManager.VERTICAL, false);*/
+
+        mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+
+
+
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mDesignLoaderMoreAdapter = new DesignLoaderMoreAdapter(mRecyclerView, mDatas);
