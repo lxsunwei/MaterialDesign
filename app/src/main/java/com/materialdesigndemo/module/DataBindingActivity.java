@@ -11,6 +11,7 @@ import com.materialdesigndemo.R;
 import com.materialdesigndemo.databinding.ActivityDataBindingBinding;
 import com.materialdesigndemo.event.UserHandles;
 import com.materialdesigndemo.model.User;
+import com.materialdesigndemo.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/11/9.
@@ -31,7 +32,14 @@ public class DataBindingActivity extends AppCompatActivity {
         binding.setHandles(userHandles);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_dataBinding);
-        toolbar.setTitle("MVVP");
+
+        ToolbarUtils.show(DataBindingActivity.this, toolbar, true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
 

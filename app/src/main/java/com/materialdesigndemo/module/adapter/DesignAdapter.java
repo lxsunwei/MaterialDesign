@@ -17,6 +17,7 @@ import com.materialdesigndemo.module.ButtonColorActivity;
 import com.materialdesigndemo.module.DataBindingActivity;
 import com.materialdesigndemo.module.LoadingMoreActivity;
 import com.materialdesigndemo.module.MainActivity;
+import com.materialdesigndemo.module.NetworkActivity;
 import com.materialdesigndemo.module.PercentLayoutActivity;
 
 import java.util.List;
@@ -90,6 +91,9 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                         Intent loading = new Intent(mContext, LoadingMoreActivity.class);
                         mContext.startActivity(loading);
                         break;
+                    case "5":
+                        Intent network = new Intent(mContext, NetworkActivity.class);
+                        mContext.startActivity(network);
                 }
 
             }

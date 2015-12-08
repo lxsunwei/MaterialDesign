@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas.add(new DesignItem("4", "RecycleView Loading More"));
 
+        mDatas.add(new DesignItem("5", "Network"));
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(
                 MainActivity.this, LinearLayoutManager.VERTICAL, false);

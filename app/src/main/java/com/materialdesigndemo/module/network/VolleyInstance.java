@@ -6,7 +6,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.materialdesigndemo.utils.VolleyPost;
 
 /**
  * Created by sunwei on 2015/11/3.

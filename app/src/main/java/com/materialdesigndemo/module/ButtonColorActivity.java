@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.materialdesigndemo.R;
+import com.materialdesigndemo.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/11/3.
@@ -20,9 +21,13 @@ public class ButtonColorActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_buttonColor);
 
-        setSupportActionBar(toolbar);
+        ToolbarUtils.show(ButtonColorActivity.this, toolbar, true);
 
-        setTitle("ButtonColor");
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

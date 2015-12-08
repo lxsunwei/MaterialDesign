@@ -14,6 +14,7 @@ import com.materialdesigndemo.R;
 import com.materialdesigndemo.model.DesignItem;
 import com.materialdesigndemo.module.adapter.DesignLoaderMoreAdapter;
 import com.materialdesigndemo.module.adapter.BaseLoadingAdapter;
+import com.materialdesigndemo.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/12/4.
@@ -37,7 +38,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
 
-        mToolbar.setTitle("Loading More");
+        ToolbarUtils.show(LoadingMoreActivity.this, mToolbar, true);
 
         mDatas = new CircularArray<>();
 
@@ -52,9 +53,6 @@ public class LoadingMoreActivity extends AppCompatActivity {
                 LoadingMoreActivity.this, 3, GridLayoutManager.VERTICAL, false);*/
 
         mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-
-
-
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -96,5 +94,11 @@ public class LoadingMoreActivity extends AppCompatActivity {
             }
             mDesignLoaderMoreAdapter.notifyItemRangeInserted(mDatas.size() - 5, 5);
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

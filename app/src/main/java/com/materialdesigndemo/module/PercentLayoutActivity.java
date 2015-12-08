@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.materialdesigndemo.R;
+import com.materialdesigndemo.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/11/7.
@@ -19,7 +20,13 @@ public class PercentLayoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_percent_layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_percentLayout);
-        setSupportActionBar(toolbar);
-        setTitle("百分比布局");
+
+        ToolbarUtils.show(PercentLayoutActivity.this, toolbar, true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
