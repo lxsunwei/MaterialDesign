@@ -1,8 +1,8 @@
-package com.materialdesigndemo;
+package com.materialdesign;
 
 import android.app.Application;
 
-import com.materialdesigndemo.utils.CrashHandler;
+import com.materialdesign.utils.CrashHandler;
 
 /**
  * Created by sunwei on 2015/11/27.

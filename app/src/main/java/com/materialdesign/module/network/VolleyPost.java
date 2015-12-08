@@ -1,4 +1,4 @@
-package com.materialdesigndemo.module.network;
+package com.materialdesign.module.network;
 
 import android.content.Context;
 

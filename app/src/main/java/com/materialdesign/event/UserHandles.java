@@ -1,8 +1,7 @@
-package com.materialdesigndemo.event;
+package com.materialdesign.event;
 
 import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.TextView;
 
 /**
  * Created by sunwei on 2015/11/9.

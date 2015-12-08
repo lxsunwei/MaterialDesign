@@ -4,11 +4,11 @@
 
         <variable
             name="handles"
-            type="com.materialdesigndemo.event.UserHandles"/>
+            type="com.materialdesign.event.UserHandles"/>
 
         <variable
             name="user"
-            type="com.materialdesigndemo.model.User" />
+            type="com.materialdesign.model.User" />
 
     </data>
 

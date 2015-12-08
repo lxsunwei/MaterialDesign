@@ -1,4 +1,4 @@
-package com.materialdesigndemo.module;
+package com.materialdesign.module;
 
 import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,9 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.materialdesigndemo.R;
-import com.materialdesigndemo.model.DesignItem;
-import com.materialdesigndemo.module.adapter.DesignAdapter;
+import com.materialdesign.R;
+import com.materialdesign.model.DesignItem;
+import com.materialdesign.module.adapter.DesignAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

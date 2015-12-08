@@ -1,4 +1,4 @@
-package com.materialdesigndemo.module.adapter;
+package com.materialdesign.module.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.materialdesigndemo.R;
-import com.materialdesigndemo.model.DesignItem;
-import com.materialdesigndemo.module.ButtonColorActivity;
-import com.materialdesigndemo.module.DataBindingActivity;
-import com.materialdesigndemo.module.LoadingMoreActivity;
-import com.materialdesigndemo.module.MainActivity;
-import com.materialdesigndemo.module.NetworkActivity;
-import com.materialdesigndemo.module.PercentLayoutActivity;
+import com.materialdesign.R;
+import com.materialdesign.model.DesignItem;
+import com.materialdesign.module.ButtonColorActivity;
+import com.materialdesign.module.DataBindingActivity;
+import com.materialdesign.module.LoadingMoreActivity;
+import com.materialdesign.module.MainActivity;
+import com.materialdesign.module.NetworkActivity;
+import com.materialdesign.module.PercentLayoutActivity;
 
 import java.util.List;
 

@@ -1,20 +1,18 @@
-package com.materialdesigndemo.module;
+package com.materialdesign.module;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.CircularArray;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 
-import com.materialdesigndemo.R;
-import com.materialdesigndemo.model.DesignItem;
-import com.materialdesigndemo.module.adapter.DesignLoaderMoreAdapter;
-import com.materialdesigndemo.module.adapter.BaseLoadingAdapter;
-import com.materialdesigndemo.utils.ToolbarUtils;
+import com.materialdesign.R;
+import com.materialdesign.model.DesignItem;
+import com.materialdesign.module.adapter.DesignLoaderMoreAdapter;
+import com.materialdesign.module.adapter.BaseLoadingAdapter;
+import com.materialdesign.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/12/4.

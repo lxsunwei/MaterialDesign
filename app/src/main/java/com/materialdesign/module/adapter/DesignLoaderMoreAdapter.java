@@ -1,4 +1,4 @@
-package com.materialdesigndemo.module.adapter;
+package com.materialdesign.module.adapter;
 
 import android.support.v4.util.CircularArray;
 import android.support.v7.widget.CardView;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.materialdesigndemo.R;
-import com.materialdesigndemo.model.DesignItem;
+import com.materialdesign.R;
+import com.materialdesign.model.DesignItem;
 
 /**
  * Created by sunwei on 2015/12/4.

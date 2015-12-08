@@ -1,17 +1,15 @@
-package com.materialdesigndemo.module;
+package com.materialdesign.module;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.materialdesigndemo.R;
-import com.materialdesigndemo.databinding.ActivityDataBindingBinding;
-import com.materialdesigndemo.event.UserHandles;
-import com.materialdesigndemo.model.User;
-import com.materialdesigndemo.utils.ToolbarUtils;
+import com.materialdesign.R;
+import com.materialdesign.databinding.ActivityDataBindingBinding;
+import com.materialdesign.event.UserHandles;
+import com.materialdesign.model.User;
+import com.materialdesign.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/11/9.

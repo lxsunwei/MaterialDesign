@@ -1,4 +1,4 @@
-package com.materialdesigndemo.model;
+package com.materialdesign.model;
 
 /**
  * Created by sunwei on 2015/11/9.

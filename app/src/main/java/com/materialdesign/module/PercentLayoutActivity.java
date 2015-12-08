@@ -1,11 +1,11 @@
-package com.materialdesigndemo.module;
+package com.materialdesign.module;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.materialdesigndemo.R;
-import com.materialdesigndemo.utils.ToolbarUtils;
+import com.materialdesign.R;
+import com.materialdesign.utils.ToolbarUtils;
 
 /**
  * Created by sunwei on 2015/11/7.

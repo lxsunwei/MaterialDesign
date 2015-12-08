@@ -1,4 +1,4 @@
-package com.materialdesigndemo.utils;
+package com.materialdesign.utils;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

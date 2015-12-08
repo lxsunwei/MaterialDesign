@@ -1,11 +1,10 @@
-package com.materialdesigndemo.module.adapter;
+package com.materialdesign.module.adapter;
 
 import android.support.v4.util.CircularArray;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.materialdesigndemo.R;
+import com.materialdesign.R;
 
 /**
  * Created by sunwei on 2015/12/4.
