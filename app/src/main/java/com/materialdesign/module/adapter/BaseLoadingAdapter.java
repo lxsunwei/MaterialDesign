@@ -5,6 +5,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private static final int TYPE_LOADING_ITEM = 1;
     //加载viewHolder
     private LoadingViewHolder mLoadingViewHolder;
+    //瀑布流
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     //数据集
     private CircularArray<T> mTs;
@@ -74,6 +76,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 没有更多数据
      */
     public void setLoadingNoMore() {
+        mIsLoading = false;
         mLoadingViewHolder.progressBar.setVisibility(View.GONE);
         mLoadingViewHolder.tvLoading.setText("数据已加载完！");
     }
@@ -83,6 +86,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      */
     public void setLoadingError() {
         if (mLoadingViewHolder != null) {
+            mIsLoading = false;
             mLoadingViewHolder.progressBar.setVisibility(View.GONE);
             mLoadingViewHolder.tvLoading.setText("加载失败，点击重新加载！");
 
@@ -90,8 +94,9 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 @Override
                 public void onClick(View v) {
                     if (mOnLoadingListener != null) {
+                        mIsLoading = true;
                         mLoadingViewHolder.progressBar.setVisibility(View.VISIBLE);
-                        mLoadingViewHolder.tvLoading.setText("正在加载");
+                        mLoadingViewHolder.tvLoading.setText("正在加载...");
 
                         mOnLoadingListener.loading();
                     }
@@ -115,6 +120,12 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      */
     private void setSpanCount(RecyclerView recyclerView) {
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+
+        if (layoutManager == null) {
+            Log.e(TAG, "LayoutManager 为空,请先设置 recycleView.setLayoutManager(...)");
+        }
+
+        //网格布局
         if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -130,6 +141,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
             });
         }
 
+        //瀑布流布局
         if (layoutManager instanceof StaggeredGridLayoutManager) {
             mStaggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
         }
@@ -141,6 +153,11 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * @param recyclerView recycleView
      */
     private void setScrollListener(RecyclerView recyclerView) {
+        if(recyclerView == null) {
+            Log.e(TAG, "recycleView 为空");
+            return;
+        }
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -154,8 +171,16 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 if (!canScrollDown(recyclerView)) {
                     if (!mIsLoading) {
                         mIsLoading = true;
-                        mTs.addLast(null);
-                        notifyItemInserted(mTs.size() - 1);
+                        if (mTs.getLast() != null) {
+                            mTs.addLast(null);
+                            notifyItemInserted(mTs.size() - 1);
+                        }
+
+                        if (mLoadingViewHolder != null) {
+                            mLoadingViewHolder.progressBar.setVisibility(View.VISIBLE);
+                            mLoadingViewHolder.tvLoading.setText("正在加载...");
+                        }
+
                         if (mOnLoadingListener != null) {
                             mOnLoadingListener.loading();
                         }

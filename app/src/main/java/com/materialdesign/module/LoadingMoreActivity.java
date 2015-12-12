@@ -83,7 +83,6 @@ public class LoadingMoreActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            //mGridLoadingAdapter.setLoadingError();
             mDesignLoaderMoreAdapter.setLoadingComplete();
 
             int size = mDatas.size();
