@@ -3,6 +3,7 @@ package com.materialdesign.module;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.CircularArray;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -13,6 +14,7 @@ import com.materialdesign.model.DesignItem;
 import com.materialdesign.module.adapter.DesignLoaderMoreAdapter;
 import com.materialdesign.module.adapter.BaseLoadingAdapter;
 import com.materialdesign.utils.ToolbarUtils;
+import com.materialdesign.widget.CustomSwipeRefreshLayout;
 
 /**
  * Created by sunwei on 2015/12/4.
@@ -26,6 +28,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private DesignLoaderMoreAdapter mDesignLoaderMoreAdapter;
     private CircularArray<DesignItem> mDatas;
+    private CustomSwipeRefreshLayout mSwipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_loading);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
+        mSwipeRefresh = (CustomSwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 
         ToolbarUtils.show(LoadingMoreActivity.this, mToolbar, true);
 
@@ -62,6 +66,13 @@ public class LoadingMoreActivity extends AppCompatActivity {
             @Override
             public void loading() {
                 new LoadAsyncTask().execute();
+            }
+        });
+
+        mSwipeRefresh.setOnRefreshListener(new CustomSwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new RefreshAsyncTask().execute();
             }
         });
     }
@@ -98,5 +109,25 @@ public class LoadingMoreActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    private class RefreshAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mSwipeRefresh.setRefreshing(false);
+        }
     }
 }

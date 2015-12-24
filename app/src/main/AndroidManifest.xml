@@ -30,7 +30,8 @@
         <activity
             android:name="com.materialdesign.module.PercentLayoutActivity"
             android:screenOrientation="portrait"
-            android:label="Percent Layout"/>
+            android:label="Percent Layout"
+            android:parentActivityName=".module.MainActivity"/>
 
         <activity
             android:name="com.materialdesign.module.DataBindingActivity"
