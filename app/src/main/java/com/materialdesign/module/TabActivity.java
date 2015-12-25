@@ -47,6 +47,12 @@ public class TabActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onNavigateUp() {
+        finish();
+        return true;
+    }
+
     private class PagerAdapter extends FragmentPagerAdapter {
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -60,11 +66,6 @@ public class TabActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return position + "";
         }
     }
 }
