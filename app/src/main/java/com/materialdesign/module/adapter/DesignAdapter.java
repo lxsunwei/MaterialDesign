@@ -19,6 +19,7 @@ import com.materialdesign.module.LoadingMoreActivity;
 import com.materialdesign.module.MainActivity;
 import com.materialdesign.module.NetworkActivity;
 import com.materialdesign.module.PercentLayoutActivity;
+import com.materialdesign.module.TabActivity;
 
 import java.util.List;
 
@@ -94,6 +95,11 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                     case "5":
                         Intent network = new Intent(mContext, NetworkActivity.class);
                         mContext.startActivity(network);
+                        break;
+                    case "6":
+                        Intent tab = new Intent(mContext, TabActivity.class);
+                        mContext.startActivity(tab);
+                        break;
                 }
 
             }

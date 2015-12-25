@@ -47,6 +47,11 @@
             android:screenOrientation="portrait"
             android:label="Network"/>
 
+        <activity
+            android:name=".module.TabActivity"
+            android:screenOrientation="portrait"
+            android:label="Tab"/>
+
     </application>
 
 </manifest>
