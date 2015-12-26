@@ -30,7 +30,7 @@ class TabStrip extends LinearLayout {
 
     private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
-    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 8;
+    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 2;
     private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
 
     private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 1;
@@ -51,10 +51,10 @@ class TabStrip extends LinearLayout {
     private int mSelectedPosition;
     private float mSelectionOffset;
 
-    private TabLayout.TabColorizer mCustomTabColorizer;
     private final SimpleTabColorizer mDefaultTabColorizer;
 
     public boolean mDividerIndicator = false;
+    public boolean mUnderlineIndictor = false;
 
     TabStrip(Context context) {
         this(context, null);
@@ -90,21 +90,12 @@ class TabStrip extends LinearLayout {
         mDividerPaint.setStrokeWidth((int) (DEFAULT_DIVIDER_THICKNESS_DIPS * density));
     }
 
-    void setCustomTabColorizer(TabLayout.TabColorizer customTabColorizer) {
-        mCustomTabColorizer = customTabColorizer;
-        invalidate();
-    }
-
     void setSelectedIndicatorColors(int... colors) {
-        // Make sure that the custom colorizer is removed
-        mCustomTabColorizer = null;
         mDefaultTabColorizer.setIndicatorColors(colors);
         invalidate();
     }
 
     void setDividerColors(int... colors) {
-        // Make sure that the custom colorizer is removed
-        mCustomTabColorizer = null;
         mDefaultTabColorizer.setDividerColors(colors);
         invalidate();
     }
@@ -120,39 +111,40 @@ class TabStrip extends LinearLayout {
         final int height = getHeight();
         final int childCount = getChildCount();
         final int dividerHeightPx = (int) (Math.min(Math.max(0f, mDividerHeight), 1f) * height);
-        final TabLayout.TabColorizer tabColorizer = mCustomTabColorizer != null
-                ? mCustomTabColorizer
-                : mDefaultTabColorizer;
+        final TabLayout.TabColorizer tabColorizer = mDefaultTabColorizer;
 
-        // Thick colored underline below the current selection
-        if (childCount > 0) {
-            View selectedTitle = getChildAt(mSelectedPosition);
-            int left = selectedTitle.getLeft();
-            int right = selectedTitle.getRight();
-            int color = tabColorizer.getIndicatorColor(mSelectedPosition);
+        if (mUnderlineIndictor) {
+            // Thick colored underline below the current selection
+            if (childCount > 0) {
+                View selectedTitle = getChildAt(mSelectedPosition);
+                int left = selectedTitle.getLeft();
+                int right = selectedTitle.getRight();
+                int color = tabColorizer.getIndicatorColor(mSelectedPosition);
 
-            if (mSelectionOffset > 0f && mSelectedPosition < (getChildCount() - 1)) {
-                int nextColor = tabColorizer.getIndicatorColor(mSelectedPosition + 1);
-                if (color != nextColor) {
-                    color = blendColors(nextColor, color, mSelectionOffset);
+                if (mSelectionOffset > 0f && mSelectedPosition < (getChildCount() - 1)) {
+                    int nextColor = tabColorizer.getIndicatorColor(mSelectedPosition + 1);
+                    if (color != nextColor) {
+                        color = blendColors(nextColor, color, mSelectionOffset);
+                    }
+
+                    // Draw the selection partway between the tabs
+                    View nextTitle = getChildAt(mSelectedPosition + 1);
+                    left = (int) (mSelectionOffset * nextTitle.getLeft() +
+                            (1.0f - mSelectionOffset) * left);
+                    right = (int) (mSelectionOffset * nextTitle.getRight() +
+                            (1.0f - mSelectionOffset) * right);
                 }
 
-                // Draw the selection partway between the tabs
-                View nextTitle = getChildAt(mSelectedPosition + 1);
-                left = (int) (mSelectionOffset * nextTitle.getLeft() +
-                        (1.0f - mSelectionOffset) * left);
-                right = (int) (mSelectionOffset * nextTitle.getRight() +
-                        (1.0f - mSelectionOffset) * right);
+                mSelectedIndicatorPaint.setColor(color);
+
+                canvas.drawRect(left, height - mSelectedIndicatorThickness, right,
+                        height, mSelectedIndicatorPaint);
             }
 
-            mSelectedIndicatorPaint.setColor(color);
-
-            /*canvas.drawRect(left, height - mSelectedIndicatorThickness, right,
-                    height, mSelectedIndicatorPaint);*/
+            // Thin underline along the entire bottom edge
+            canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height,
+                    mBottomBorderPaint);
         }
-
-        // Thin underline along the entire bottom edge
-        //canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height, mBottomBorderPaint);
 
         if (mDividerIndicator) {
             // Vertical separators between the titles

@@ -17,13 +17,14 @@
 package com.materialdesign.widget.tab;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -39,30 +40,29 @@ import com.materialdesign.R;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
- * the user's scroll progress.
- * <p/>
- * To use the component, simply add it to your view hierarchy. Then in your
- * {@link android.app.Activity} or {@link android.support.v4.app.Fragment} call
- * {@link #setViewPager(ViewPager)} providing it the ViewPager this layout is being used for.
- * <p/>
- * The colors can be customized in two ways. The first and simplest is to provide an array of colors
- * via {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)}. The
- * alternative is via the {@link TabColorizer} interface which provides you complete control over
- * which color is used for any individual position.
- * <p/>
- * The views used as tabs can be customized by calling {@link #setCustomTabView(int, int)},
- * providing the layout ID of your custom layout.
+ * tab
  */
 public class TabLayout extends HorizontalScrollView {
+
+    //正常文字颜色
+    private int mTabTextColorNormal = android.R.color.darker_gray;
+    //选中文字颜色
+    private int mTabTextColorSelected = android.R.color.holo_blue_light;
+
+    private int mTabViewBackgroundColorNormal = android.R.color.white;
+    private int mTabViewBackgroundColorSelected = android.R.color.white;
+
+    //tab字体颜色
+    private ColorStateList mTabTextColorStateList = new ColorStateList(
+            new int[][]{{android.R.attr.state_selected}, {}},
+            new int[]{getResources().getColor(mTabTextColorSelected),
+                    getResources().getColor(mTabTextColorNormal)});
 
     private List<Tab> mTabs = new ArrayList<>();
 
     /**
-     *
-     * @param tab
+     * @param tab tab
      */
     public void addTab(Tab tab) {
         mTabs.add(tab);
@@ -73,12 +73,45 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     /**
+     * tab文字颜色
+     *
+     * @param tabTextColorNormal   normal
+     * @param tabTextColorSelected selected
+     */
+    public void setTabTextColors(@ColorRes int tabTextColorNormal, @ColorRes int tabTextColorSelected) {
+        int[][] stats = new int[][]{{android.R.attr.state_selected}, {}};
+        int[] colors = new int[]{getResources().getColor(tabTextColorSelected),
+                getResources().getColor(tabTextColorNormal)};
+        mTabTextColorStateList = new ColorStateList(stats, colors);
+    }
+
+    /**
+     * tabView背景色
+     * @param tabViewBackgroundColorNormal normal
+     * @param tabViewBackgroundColorSelected selected
+     */
+    public void setTabViewBackgroundColors(@ColorRes int tabViewBackgroundColorNormal,
+                                           @ColorRes int tabViewBackgroundColorSelected) {
+        mTabViewBackgroundColorNormal= tabViewBackgroundColorNormal;
+        mTabViewBackgroundColorSelected = tabViewBackgroundColorSelected;
+    }
+
+    /**
      * 是否显示 tab 分割线
      *
      * @param b boolean
      */
     public void setDividerIndicator(boolean b) {
         mTabStrip.mDividerIndicator = b;
+    }
+
+    /**
+     * 是否显示底部线
+     *
+     * @param b boolean
+     */
+    public void setUnderlineIndicator(boolean b) {
+        mTabStrip.mUnderlineIndictor = b;
     }
 
     public class Tab {
@@ -105,8 +138,7 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     /**
-     * Allows complete control over the colors drawn in the tab layout. Set with
-     * {@link #setCustomTabColorizer(TabColorizer)}.
+     * Allows complete control over the colors drawn in the tab layout. Set with.
      */
     public interface TabColorizer {
 
@@ -127,9 +159,6 @@ public class TabLayout extends HorizontalScrollView {
     private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
 
     private int mTitleOffset;
-
-    private int mTabViewLayoutId;
-    private int mTabViewTextViewId;
 
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
@@ -156,17 +185,6 @@ public class TabLayout extends HorizontalScrollView {
 
         mTabStrip = new TabStrip(context);
         addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-    }
-
-    /**
-     * Set the custom {@link TabColorizer} to be used.
-     * <p/>
-     * If you only require simple custmisation then you can use
-     * {@link #setSelectedIndicatorColors(int...)} and {@link #setDividerColors(int...)} to achieve
-     * similar effects.
-     */
-    public void setCustomTabColorizer(TabColorizer tabColorizer) {
-        mTabStrip.setCustomTabColorizer(tabColorizer);
     }
 
     /**
@@ -197,17 +215,6 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     /**
-     * Set the custom layout to be inflated for the tab views.
-     *
-     * @param layoutResId Layout id to be inflated
-     * @param textViewId  id of the {@link TextView} in the inflated view
-     */
-    public void setCustomTabView(int layoutResId, int textViewId) {
-        mTabViewLayoutId = layoutResId;
-        mTabViewTextViewId = textViewId;
-    }
-
-    /**
      * Sets the associated view pager. Note that the assumption here is that the pager content
      * (number of tabs and tab titles) does not change after this call has been made.
      */
@@ -223,12 +230,11 @@ public class TabLayout extends HorizontalScrollView {
 
     /**
      * Create a default view to be used for tabs. This is called if a custom tab view is not set via
-     * {@link #setCustomTabView(int, int)}.
+     * .
      */
     protected View createDefaultTabView(Context context) {
-        View tabView = (View) LayoutInflater.from(context).inflate(R.layout.tab, null);
-        //TabView tabView = new TabView(view);
-        TextView textView = (TextView) tabView.findViewById(R.id.tv_tabTitle);
+        View tabView = LayoutInflater.from(context).inflate(R.layout.tab, null);
+        TextView textView = (TextView) tabView.findViewById(R.id.tv_tabText);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
         textView.setTypeface(Typeface.DEFAULT);
@@ -239,7 +245,7 @@ public class TabLayout extends HorizontalScrollView {
             TypedValue outValue = new TypedValue();
             getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
                     outValue, true);
-            //textView.setBackgroundResource(outValue.resourceId);
+            textView.setBackgroundResource(outValue.resourceId);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -258,51 +264,33 @@ public class TabLayout extends HorizontalScrollView {
         final OnClickListener tabClickListener = new TabClickListener();
 
         for (int i = 0; i < adapter.getCount(); i++) {
-            View tabView = null;
-            TextView tabTitleView = null;
-            ImageView tabImageView = null;
-            /*if (mTabViewLayoutId != 0) {
-                // If there is a custom tab view layout id set, try and inflate it
-                tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip,
-                        false);
-                tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
-            }*/
 
-            if (tabView == null) {
-                tabView = createDefaultTabView(getContext());
-            }
+            View tabView = createDefaultTabView(getContext());
 
-            if (tabTitleView == null) {
-                tabTitleView = (TextView) tabView.findViewById(R.id.tv_tabTitle);
-            }
+            TextView tabText = (TextView) tabView.findViewById(R.id.tv_tabText);
 
-            if (tabImageView == null) {
-                tabImageView = (ImageView) tabView.findViewById(R.id.iv_tabImage);
-            }
+            ImageView tabIcon = (ImageView) tabView.findViewById(R.id.iv_tabIcon);
 
-            //Drawable drawable = drawables[i];
-
-            /*drawable.setBounds(0, 0, drawable.getMinimumWidth() / 2, drawable.getMinimumHeight() / 2);
-            tabTitleView.setCompoundDrawables(null, drawable, null, null);*/
-
-            //tabTitleView.setBackgroundColor(getResources().getColor(android.R.color.white));
             if (mTabs.size() > i) {
                 Tab tab = mTabs.get(i);
                 if (tab.icon != 0) {
-                    tabImageView.setImageResource(tab.icon);
+                    tabIcon.setImageResource(tab.icon);
                 }
 
                 if (tab.tabText != null) {
-                    tabTitleView.setText(tab.tabText);
+                    tabText.setText(tab.tabText);
                 }
             }
+            tabText.setTextColor(mTabTextColorStateList);
 
             tabView.setOnClickListener(tabClickListener);
             LinearLayout.LayoutParams lp =
                     new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
             if (i == 0) {
-                tabTitleView.setSelected(true);
-                tabImageView.setSelected(true);
+                tabText.setSelected(true);
+                tabIcon.setSelected(true);
+                tabView.setBackgroundColor(
+                        getResources().getColor(mTabViewBackgroundColorSelected));
             }
             mTabStrip.addView(tabView, lp);
         }
@@ -390,7 +378,6 @@ public class TabLayout extends HorizontalScrollView {
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 View view = mTabStrip.getChildAt(i);
                 tabViewSelector(view, false);
-
             }
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
@@ -413,6 +400,13 @@ public class TabLayout extends HorizontalScrollView {
         if (LinearLayout.class.isInstance(view)) {
             layout = (LinearLayout) view;
         }
+
+        if (selector) {
+            view.setBackgroundColor(getResources().getColor(mTabViewBackgroundColorSelected));
+        } else {
+            view.setBackgroundColor(getResources().getColor(mTabViewBackgroundColorNormal));
+        }
+
         for (int y = 0; y < layout.getChildCount(); y++) {
             layout.getChildAt(y).setSelected(selector);
         }
