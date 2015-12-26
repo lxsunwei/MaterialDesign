@@ -44,7 +44,6 @@ public class TabActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.tab2_selector).setTabText("Tab2"));
 
         mTabLayout.setViewPager(mViewPager);
-
     }
 
     @Override
