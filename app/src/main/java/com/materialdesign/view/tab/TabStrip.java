@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.materialdesign.widget.tab;
+package com.materialdesign.view.tab;
 
 import android.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -28,7 +29,7 @@ import android.widget.LinearLayout;
 
 class TabStrip extends LinearLayout {
 
-    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
+    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 1;
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
     private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 2;
     private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
@@ -54,7 +55,13 @@ class TabStrip extends LinearLayout {
     private final SimpleTabColorizer mDefaultTabColorizer;
 
     public boolean mDividerIndicator = false;
-    public boolean mUnderlineIndictor = false;
+    public boolean mUnderlineIndicator = false;
+
+    public int mTabViewBackgroundNormal = R.color.white;
+    public int mTabViewBackgroundSelected = R.color.white;
+
+    private Paint mTabViewBackgroundNormalPaint;
+    private Paint mTabViewBackgroundSelectedPaint;
 
     TabStrip(Context context) {
         this(context, null);
@@ -88,6 +95,25 @@ class TabStrip extends LinearLayout {
         mDividerHeight = DEFAULT_DIVIDER_HEIGHT;
         mDividerPaint = new Paint();
         mDividerPaint.setStrokeWidth((int) (DEFAULT_DIVIDER_THICKNESS_DIPS * density));
+
+        mTabViewBackgroundNormalPaint = new Paint();
+        mTabViewBackgroundNormalPaint.setColor(getResources().getColor(mTabViewBackgroundNormal));
+
+        mTabViewBackgroundSelectedPaint = new Paint();
+        mTabViewBackgroundSelectedPaint.setColor(
+                getResources().getColor(mTabViewBackgroundSelected));
+    }
+
+    public void setTabViewBackgroundColors(@ColorRes int tabViewBackgroundColorNormal,
+                                           @ColorRes int tabViewBackgroundColorSelected) {
+        mTabViewBackgroundNormalPaint.setColor(getResources().getColor(tabViewBackgroundColorNormal));
+        mTabViewBackgroundSelectedPaint.setColor(getResources().getColor(tabViewBackgroundColorSelected));
+        invalidate();
+    }
+
+    public void setTabViewBottomBorderColor(@ColorRes int colorRes) {
+        mBottomBorderPaint.setColor(getResources().getColor(colorRes));
+        invalidate();
     }
 
     void setSelectedIndicatorColors(int... colors) {
@@ -113,7 +139,10 @@ class TabStrip extends LinearLayout {
         final int dividerHeightPx = (int) (Math.min(Math.max(0f, mDividerHeight), 1f) * height);
         final TabLayout.TabColorizer tabColorizer = mDefaultTabColorizer;
 
-        if (mUnderlineIndictor) {
+        canvas.drawRect(getLeft(), getTop(),getRight() , height - mBottomBorderThickness,
+                mTabViewBackgroundNormalPaint);
+
+        if (mUnderlineIndicator) {
             // Thick colored underline below the current selection
             if (childCount > 0) {
                 View selectedTitle = getChildAt(mSelectedPosition);
@@ -139,12 +168,17 @@ class TabStrip extends LinearLayout {
 
                 canvas.drawRect(left, height - mSelectedIndicatorThickness, right,
                         height, mSelectedIndicatorPaint);
+
+                canvas.drawRect(left, getTop(),right , height - mSelectedIndicatorThickness,
+                        mTabViewBackgroundSelectedPaint);
             }
 
             // Thin underline along the entire bottom edge
             canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height,
                     mBottomBorderPaint);
         }
+
+
 
         if (mDividerIndicator) {
             // Vertical separators between the titles

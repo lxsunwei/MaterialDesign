@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.materialdesign.R;
 import com.materialdesign.utils.ToolbarUtils;
-import com.materialdesign.widget.tab.TabLayout;
+import com.materialdesign.view.tab.TabLayout;
 
 /**
  * Created by sunwei on 2015/12/25.

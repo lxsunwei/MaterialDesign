@@ -14,7 +14,6 @@ import com.materialdesign.model.DesignItem;
 import com.materialdesign.module.adapter.DesignLoaderMoreAdapter;
 import com.materialdesign.module.adapter.BaseLoadingAdapter;
 import com.materialdesign.utils.ToolbarUtils;
-import com.materialdesign.widget.CustomSwipeRefreshLayout;
 
 /**
  * Created by sunwei on 2015/12/4.
@@ -28,7 +27,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private DesignLoaderMoreAdapter mDesignLoaderMoreAdapter;
     private CircularArray<DesignItem> mDatas;
-    private CustomSwipeRefreshLayout mSwipeRefresh;
+    private SwipeRefreshLayout mSwipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_loading);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
-        mSwipeRefresh = (CustomSwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 
         ToolbarUtils.show(LoadingMoreActivity.this, mToolbar, true);
 
@@ -69,7 +68,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
             }
         });
 
-        mSwipeRefresh.setOnRefreshListener(new CustomSwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new RefreshAsyncTask().execute();

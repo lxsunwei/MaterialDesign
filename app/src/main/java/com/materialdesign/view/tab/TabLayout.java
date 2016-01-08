@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.materialdesign.widget.tab;
+package com.materialdesign.view.tab;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -49,9 +49,6 @@ public class TabLayout extends HorizontalScrollView {
     private int mTabTextColorNormal = android.R.color.darker_gray;
     //选中文字颜色
     private int mTabTextColorSelected = android.R.color.holo_blue_light;
-
-    private int mTabViewBackgroundColorNormal = android.R.color.white;
-    private int mTabViewBackgroundColorSelected = android.R.color.white;
 
     //tab字体颜色
     private ColorStateList mTabTextColorStateList = new ColorStateList(
@@ -92,8 +89,8 @@ public class TabLayout extends HorizontalScrollView {
      */
     public void setTabViewBackgroundColors(@ColorRes int tabViewBackgroundColorNormal,
                                            @ColorRes int tabViewBackgroundColorSelected) {
-        mTabViewBackgroundColorNormal= tabViewBackgroundColorNormal;
-        mTabViewBackgroundColorSelected = tabViewBackgroundColorSelected;
+        mTabStrip.setTabViewBackgroundColors(tabViewBackgroundColorNormal,
+                tabViewBackgroundColorSelected);
     }
 
     /**
@@ -111,7 +108,31 @@ public class TabLayout extends HorizontalScrollView {
      * @param b boolean
      */
     public void setUnderlineIndicator(boolean b) {
-        mTabStrip.mUnderlineIndictor = b;
+        mTabStrip.mUnderlineIndicator = b;
+    }
+
+    /**
+     * 字体大小
+     * @param size sp
+     */
+    public void setTabTextSize(int size) {
+        mTabViewTextCustomSize = size;
+    }
+
+    /**
+     * 上下边距
+     * @param size dp
+     */
+    public void setTabViewPadding(int size) {
+        mTabViewCustomPadding = size;
+    }
+
+    /**
+     * 底部border颜色
+     * @param colorRes
+     */
+    public void setBottomBorderColor(@ColorRes int colorRes) {
+        mTabStrip.setTabViewBottomBorderColor(colorRes);
     }
 
     public class Tab {
@@ -155,8 +176,11 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 0;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
+    private int mTabViewDefaultPadding = 0;
+    private int mTabViewCustomPadding = 8;
+    private int mTabViewTextDefaultSize = 12;
+    private int mTabViewTextMediumSize = 18;
+    private int mTabViewTextCustomSize = 0;
 
     private int mTitleOffset;
 
@@ -233,10 +257,10 @@ public class TabLayout extends HorizontalScrollView {
      * .
      */
     protected View createDefaultTabView(Context context) {
-        View tabView = LayoutInflater.from(context).inflate(R.layout.tab, null);
+        View tabView = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
         TextView textView = (TextView) tabView.findViewById(R.id.tv_tabText);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTabViewTextDefaultSize);
         textView.setTypeface(Typeface.DEFAULT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -245,7 +269,7 @@ public class TabLayout extends HorizontalScrollView {
             TypedValue outValue = new TypedValue();
             getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
                     outValue, true);
-            textView.setBackgroundResource(outValue.resourceId);
+            //textView.setBackgroundResource(outValue.resourceId);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -253,8 +277,8 @@ public class TabLayout extends HorizontalScrollView {
             textView.setAllCaps(true);
         }
 
-        int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
-        textView.setPadding(padding, padding, padding, padding);
+        int padding = (int) (mTabViewDefaultPadding * getResources().getDisplayMetrics().density);
+        textView.setPadding(0, padding, 0, padding);
 
         return tabView;
     }
@@ -275,13 +299,22 @@ public class TabLayout extends HorizontalScrollView {
                 Tab tab = mTabs.get(i);
                 if (tab.icon != 0) {
                     tabIcon.setImageResource(tab.icon);
+                } else {
+                    tabText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTabViewTextMediumSize);
+                    int padding = (int) (mTabViewCustomPadding * getResources().getDisplayMetrics().density);
+                    tabView.setPadding(0, padding, 0, padding);
                 }
 
                 if (tab.tabText != null) {
                     tabText.setText(tab.tabText);
                 }
             }
+
             tabText.setTextColor(mTabTextColorStateList);
+
+            if (mTabViewTextCustomSize != 0) {
+                tabText.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTabViewTextCustomSize);
+            }
 
             tabView.setOnClickListener(tabClickListener);
             LinearLayout.LayoutParams lp =
@@ -289,13 +322,10 @@ public class TabLayout extends HorizontalScrollView {
             if (i == 0) {
                 tabText.setSelected(true);
                 tabIcon.setSelected(true);
-                tabView.setBackgroundColor(
-                        getResources().getColor(mTabViewBackgroundColorSelected));
             }
             mTabStrip.addView(tabView, lp);
         }
     }
-
 
     @Override
     protected void onAttachedToWindow() {
@@ -379,6 +409,7 @@ public class TabLayout extends HorizontalScrollView {
                 View view = mTabStrip.getChildAt(i);
                 tabViewSelector(view, false);
             }
+
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
                     mViewPager.setCurrentItem(i, false);
@@ -401,15 +432,8 @@ public class TabLayout extends HorizontalScrollView {
             layout = (LinearLayout) view;
         }
 
-        if (selector) {
-            view.setBackgroundColor(getResources().getColor(mTabViewBackgroundColorSelected));
-        } else {
-            view.setBackgroundColor(getResources().getColor(mTabViewBackgroundColorNormal));
-        }
-
         for (int y = 0; y < layout.getChildCount(); y++) {
             layout.getChildAt(y).setSelected(selector);
         }
     }
-
 }

@@ -69,7 +69,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     public void setLoadingComplete() {
         mIsLoading = false;
         mTs.removeFromEnd(1);
-        notifyItemRemoved(mTs.size() - 1);
+        notifyItemRemoved(mTs.size() -1);
     }
 
     /**
@@ -177,6 +177,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                         }
 
                         if (mLoadingViewHolder != null) {
+                            mLoadingViewHolder.llyLoading.setVisibility(View.VISIBLE);
                             mLoadingViewHolder.progressBar.setVisibility(View.VISIBLE);
                             mLoadingViewHolder.tvLoading.setText("正在加载...");
                         }
@@ -239,7 +240,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
             return onCreateNormalViewHolder(parent);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.loading_view, parent, false);
+                    R.layout.loading_layout, parent, false);
             mLoadingViewHolder = new LoadingViewHolder(view);
             return mLoadingViewHolder;
         }
