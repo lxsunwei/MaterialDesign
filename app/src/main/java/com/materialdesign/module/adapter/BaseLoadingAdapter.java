@@ -36,13 +36,19 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     //数据集
     private CircularArray<T> mTs;
+    private boolean mFirstEnter = true;
+    private RecyclerView mRecyclerView;
+
 
     public BaseLoadingAdapter(RecyclerView recyclerView, CircularArray<T> ts) {
         mTs = ts;
 
+        mRecyclerView = recyclerView;
+
         setSpanCount(recyclerView);
 
-        setScrollListener(recyclerView);
+        notifyLoading();
+
     }
 
     private OnLoadingListener mOnLoadingListener;
@@ -69,7 +75,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     public void setLoadingComplete() {
         mIsLoading = false;
         mTs.removeFromEnd(1);
-        notifyItemRemoved(mTs.size() -1);
+        notifyItemRemoved(mTs.size() - 1);
     }
 
     /**
@@ -78,7 +84,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     public void setLoadingNoMore() {
         mIsLoading = false;
         mLoadingViewHolder.progressBar.setVisibility(View.GONE);
-        mLoadingViewHolder.tvLoading.setText("数据已加载完！");
+        mLoadingViewHolder.tvLoading.setText("已加载完！");
     }
 
     /**
@@ -148,6 +154,16 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     }
 
     /**
+     * 显示加载
+     */
+    private void notifyLoading() {
+        if (mTs.getLast() != null) {
+            mTs.addLast(null);
+            notifyItemInserted(mTs.size() - 1);
+        }
+    }
+
+    /**
      * 监听滚动事件
      *
      * @param recyclerView recycleView
@@ -169,15 +185,14 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 super.onScrolled(recyclerView, dx, dy);
 
                 if (!canScrollDown(recyclerView)) {
-                    if (!mIsLoading) {
+
+                    if (!mIsLoading && !mFirstEnter) {
+
+                        notifyLoading();
+
                         mIsLoading = true;
-                        if (mTs.getLast() != null) {
-                            mTs.addLast(null);
-                            notifyItemInserted(mTs.size() - 1);
-                        }
 
                         if (mLoadingViewHolder != null) {
-                            mLoadingViewHolder.llyLoading.setVisibility(View.VISIBLE);
                             mLoadingViewHolder.progressBar.setVisibility(View.VISIBLE);
                             mLoadingViewHolder.tvLoading.setText("正在加载...");
                         }
@@ -186,6 +201,10 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                             mOnLoadingListener.loading();
                         }
                     }
+                }
+
+                if (mFirstEnter) {
+                    mFirstEnter = false;
                 }
             }
         });
@@ -252,6 +271,14 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
         if (type == TYPE_NORMAL_ITEM) {
             onBindNormalViewHolder(holder, position);
         } else {
+
+            if (mFirstEnter) {
+                mLoadingViewHolder.tvLoading.setText("已加载完");
+                mLoadingViewHolder.progressBar.setVisibility(View.GONE);
+
+                setScrollListener(mRecyclerView);
+            }
+
             if (mStaggeredGridLayoutManager != null) {
                 StaggeredGridLayoutManager.LayoutParams layoutParams =
                         new StaggeredGridLayoutManager.LayoutParams(

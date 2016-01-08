@@ -143,6 +143,11 @@ class TabStrip extends LinearLayout {
                 mTabViewBackgroundNormalPaint);
 
         if (mUnderlineIndicator) {
+
+            // Thin underline along the entire bottom edge
+            canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height,
+                    mBottomBorderPaint);
+
             // Thick colored underline below the current selection
             if (childCount > 0) {
                 View selectedTitle = getChildAt(mSelectedPosition);
@@ -172,10 +177,6 @@ class TabStrip extends LinearLayout {
                 canvas.drawRect(left, getTop(),right , height - mSelectedIndicatorThickness,
                         mTabViewBackgroundSelectedPaint);
             }
-
-            // Thin underline along the entire bottom edge
-            canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height,
-                    mBottomBorderPaint);
         }
 
 
