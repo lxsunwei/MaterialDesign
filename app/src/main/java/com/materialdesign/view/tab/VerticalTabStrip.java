@@ -18,16 +18,15 @@ package com.materialdesign.view.tab;
 
 import android.R;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.View;
+import android.view.Gravity;
 import android.widget.LinearLayout;
 
-class TabStrip extends LinearLayout {
+class VerticalTabStrip extends LinearLayout {
 
     private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 1;
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
@@ -63,11 +62,11 @@ class TabStrip extends LinearLayout {
     private Paint mTabViewBackgroundNormalPaint;
     private Paint mTabViewBackgroundSelectedPaint;
 
-    TabStrip(Context context) {
+    VerticalTabStrip(Context context) {
         this(context, null);
     }
 
-    TabStrip(Context context, AttributeSet attrs) {
+    VerticalTabStrip(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 
@@ -102,6 +101,9 @@ class TabStrip extends LinearLayout {
         mTabViewBackgroundSelectedPaint = new Paint();
         mTabViewBackgroundSelectedPaint.setColor(
                 getResources().getColor(mTabViewBackgroundSelected));
+
+        setOrientation(VERTICAL);
+        setGravity(Gravity.CENTER);
     }
 
     public void setTabViewBackgroundColors(@ColorRes int tabViewBackgroundColorNormal,
@@ -132,7 +134,7 @@ class TabStrip extends LinearLayout {
         invalidate();
     }
 
-    @Override
+    /*@Override
     protected void onDraw(Canvas canvas) {
         final int height = getHeight();
         final int childCount = getChildCount();
@@ -192,7 +194,7 @@ class TabStrip extends LinearLayout {
                         separatorTop + dividerHeightPx, mDividerPaint);
             }
         }
-    }
+    }*/
 
     /**
      * Set the alpha value of the {@code color} to be the given {@code alpha} value.

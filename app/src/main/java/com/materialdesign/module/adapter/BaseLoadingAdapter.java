@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.materialdesign.R;
 
+
 /**
  * Created by sunwei on 2015/12/4.
  * Email: lx_sunwei@163.com.
@@ -25,7 +26,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private static final String TAG = "BaseLoadingAdapter";
 
     //是否正在加载
-    private boolean mIsLoading = false;
+    public boolean mIsLoading = false;
     //正常条目
     private static final int TYPE_NORMAL_ITEM = 0;
     //加载条目
@@ -36,11 +37,12 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     //数据集
     private CircularArray<T> mTs;
+    //首次进入
     private boolean mFirstEnter = true;
     private RecyclerView mRecyclerView;
 
-
     public BaseLoadingAdapter(RecyclerView recyclerView, CircularArray<T> ts) {
+
         mTs = ts;
 
         mRecyclerView = recyclerView;
@@ -73,9 +75,12 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 加载完成
      */
     public void setLoadingComplete() {
-        mIsLoading = false;
-        mTs.removeFromEnd(1);
-        notifyItemRemoved(mTs.size() - 1);
+
+        if (mTs.size() > 0 && mTs.getLast() == null) {
+            mIsLoading = false;
+            mTs.removeFromEnd(1);
+            notifyItemRemoved(mTs.size() - 1);
+        }
     }
 
     /**
@@ -157,7 +162,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 显示加载
      */
     private void notifyLoading() {
-        if (mTs.getLast() != null) {
+        if (mTs.size() == 0 || mTs.getLast() != null) {
             mTs.addLast(null);
             notifyItemInserted(mTs.size() - 1);
         }
@@ -272,6 +277,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
             onBindNormalViewHolder(holder, position);
         } else {
 
+            //首次进入不加载
             if (mFirstEnter) {
                 mLoadingViewHolder.tvLoading.setText("已加载完");
                 mLoadingViewHolder.progressBar.setVisibility(View.GONE);
@@ -287,6 +293,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 layoutParams.setFullSpan(true);
 
                 mLoadingViewHolder.llyLoading.setLayoutParams(layoutParams);
+
             }
         }
     }

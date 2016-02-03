@@ -30,9 +30,10 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.HorizontalScrollView;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.materialdesign.R;
@@ -41,9 +42,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * tab
+ * 垂直tab
  */
-public class TabLayout extends HorizontalScrollView {
+public class VerticalTabLayout extends ScrollView {
 
     //正常文字颜色
     private int mTabTextColorNormal = android.R.color.darker_gray;
@@ -58,10 +59,8 @@ public class TabLayout extends HorizontalScrollView {
 
     private List<Tab> mTabs = new ArrayList<>();
 
-    //中间tab
     private boolean hasMiddleTabView = false;
 
-    //中间tab icon
     private int mMiddleIconResId;
 
     public void setTabViewMiddleIcon(@DrawableRes int resId) {
@@ -223,28 +222,29 @@ public class TabLayout extends HorizontalScrollView {
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
-    private final TabStrip mTabStrip;
+    private final VerticalTabStrip mTabStrip;
 
-    public TabLayout(Context context) {
+    public VerticalTabLayout(Context context) {
         this(context, null);
     }
 
-    public TabLayout(Context context, AttributeSet attrs) {
+    public VerticalTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TabLayout(Context context, AttributeSet attrs, int defStyle) {
+    public VerticalTabLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         // Disable the Scroll Bar
-        setHorizontalScrollBarEnabled(false);
+        setVerticalScrollBarEnabled(false);
         // Make sure that the Tab Strips fills this View
         setFillViewport(true);
 
         mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
 
-        mTabStrip = new TabStrip(context);
-        addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        mTabStrip = new VerticalTabStrip(context);
+        addView(mTabStrip, (int)(48 * getResources().getDisplayMetrics().density),
+                LayoutParams.MATCH_PARENT);
     }
 
     /**
@@ -264,7 +264,7 @@ public class TabLayout extends HorizontalScrollView {
     }
 
     /**
-     * Set the {@link ViewPager.OnPageChangeListener}. When using {@link TabLayout} you are
+     * Set the {@link ViewPager.OnPageChangeListener}. When using {@link VerticalTabLayout} you are
      * required to set any {@link ViewPager.OnPageChangeListener} through this method. This is so
      * that the layout can update it's scroll position correctly.
      *
@@ -354,7 +354,7 @@ public class TabLayout extends HorizontalScrollView {
 
             tabView.setOnClickListener(tabClickListener);
             LinearLayout.LayoutParams lp =
-                    new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 0, 1);
             if (i == 0) {
                 tabText.setSelected(true);
                 tabIcon.setSelected(true);
@@ -362,7 +362,6 @@ public class TabLayout extends HorizontalScrollView {
             mTabStrip.addView(tabView, lp);
         }
 
-        //中间tab,点击tab-额外功能
         if (hasMiddleTabView) {
             View tabView = LayoutInflater.from(getContext()).inflate(R.layout.tab_layout, null);
 
@@ -486,12 +485,7 @@ public class TabLayout extends HorizontalScrollView {
 
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
-                    if (i > 2) {
-                        mViewPager.setCurrentItem(i - 1, false);
-                    } else {
-                        mViewPager.setCurrentItem(i, false);
-                    }
-
+                    mViewPager.setCurrentItem(i, false);
                     tabViewSelector(v, true);
                     return;
                 }

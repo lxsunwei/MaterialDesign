@@ -8,10 +8,26 @@
         android:id="@+id/toolbar_tab"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"/>
+        android:background="?attr/colorPrimary" />
+
+    <com.materialdesign.view.tab.TabLayout
+        android:id="@+id/tabLayout_tabTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+    </com.materialdesign.view.tab.TabLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager_tab"
+        android:id="@+id/viewPager_tabTop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager_tabBottom"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -19,7 +35,7 @@
     </android.support.v4.view.ViewPager>
 
     <com.materialdesign.view.tab.TabLayout
-        android:id="@+id/tabLayout_tab"
+        android:id="@+id/tabLayout_tabBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white">

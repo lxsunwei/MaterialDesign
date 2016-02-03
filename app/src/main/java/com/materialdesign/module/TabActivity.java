@@ -16,13 +16,15 @@ import com.materialdesign.view.tab.TabLayout;
 /**
  * Created by sunwei on 2015/12/25.
  * Email: lx_sunwei@163.com.
- * Description:
+ * Description: tab
  */
 public class TabActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private TabLayout mTabLayoutTop;
+    private TabLayout mTabLayoutBottom;
+    private ViewPager mViewPagerTop;
+    private ViewPager mViewPagerBottom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,20 +32,33 @@ public class TabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_tab);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout_tab);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager_tab);
+        mTabLayoutBottom = (TabLayout) findViewById(R.id.tabLayout_tabBottom);
+        mTabLayoutTop = (TabLayout) findViewById(R.id.tabLayout_tabTop);
+        mViewPagerTop = (ViewPager) findViewById(R.id.viewPager_tabTop);
+        mViewPagerBottom = (ViewPager) findViewById(R.id.viewPager_tabBottom);
 
         ToolbarUtils.show(TabActivity.this, mToolbar, true);
 
-        android.support.design.widget.TabLayout t;
-
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(pagerAdapter);
+        mViewPagerTop.setAdapter(pagerAdapter);
+        mViewPagerBottom.setAdapter(pagerAdapter);
 
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.tab1_selector).setTabText("Tab1"));
-        mTabLayout.addTab(mTabLayout.newTab().setIcon(R.drawable.tab2_selector).setTabText("Tab2"));
+        mTabLayoutTop.setTabTextColors(R.color.colorNormal, R.color.colorPrimary);
+        mTabLayoutTop.setUnderlineIndicator(true);
+        mTabLayoutTop.setDividerIndicator(true);
+        mTabLayoutTop.addTab(mTabLayoutTop.newTab().setTabText("Tab1"));
+        mTabLayoutTop.addTab(mTabLayoutTop.newTab().setTabText("Tab2"));
 
-        mTabLayout.setViewPager(mViewPager);
+        mTabLayoutTop.setViewPager(mViewPagerTop);
+
+
+        mTabLayoutBottom.setTabTextColors(R.color.colorNormal, R.color.colorPrimary);
+        mTabLayoutBottom.addTab(mTabLayoutBottom.newTab().setIcon(R.drawable.tab1_selector)
+                .setTabText("Tab1"));
+        mTabLayoutBottom.addTab(mTabLayoutBottom.newTab().setIcon(R.drawable.tab2_selector)
+                .setTabText("Tab2"));
+
+        mTabLayoutBottom.setViewPager(mViewPagerBottom);
     }
 
     @Override
@@ -66,5 +81,11 @@ public class TabActivity extends AppCompatActivity {
         public int getCount() {
             return 2;
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
