@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.materialdesign.R;
 
+import java.util.UUID;
+
 
 /**
  * Created by sunwei on 2015/12/4.

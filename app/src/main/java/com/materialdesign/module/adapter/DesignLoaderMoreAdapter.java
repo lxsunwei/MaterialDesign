@@ -3,6 +3,7 @@ package com.materialdesign.module.adapter;
 import android.support.v4.util.CircularArray;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,13 @@ public class DesignLoaderMoreAdapter extends BaseLoadingAdapter<DesignItem> {
             //设置瀑布流的条目大小
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(260, 360);
             lp.setMargins(10, 40, 10, 80);
+            viewHolder.cardView.setLayoutParams(lp);
+        } else {
+            //设置瀑布流的条目大小
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(16, 16, 16, 16);
             viewHolder.cardView.setLayoutParams(lp);
         }
 

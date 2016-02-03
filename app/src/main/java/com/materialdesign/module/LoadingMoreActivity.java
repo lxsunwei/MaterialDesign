@@ -55,6 +55,8 @@ public class LoadingMoreActivity extends AppCompatActivity {
 
         mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
 
+        ((StaggeredGridLayoutManager)mLayoutManager).setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mDesignLoaderMoreAdapter = new DesignLoaderMoreAdapter(mRecyclerView, mDatas);
