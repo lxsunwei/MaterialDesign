@@ -15,6 +15,7 @@ import com.materialdesign.R;
 import com.materialdesign.model.DesignItem;
 import com.materialdesign.module.ButtonColorActivity;
 import com.materialdesign.module.DataBindingActivity;
+import com.materialdesign.module.KotlinActivity;
 import com.materialdesign.module.LoadingMoreActivity;
 import com.materialdesign.module.MainActivity;
 import com.materialdesign.module.NetworkActivity;
@@ -99,6 +100,10 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
                     case "6":
                         Intent tab = new Intent(mContext, TabActivity.class);
                         mContext.startActivity(tab);
+                        break;
+                    case "7":
+                        Intent kotlin = new Intent(mContext, KotlinActivity.class);
+                        mContext.startActivity(kotlin);
                         break;
                 }
 

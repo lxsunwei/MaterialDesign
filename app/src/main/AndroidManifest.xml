@@ -52,6 +52,11 @@
             android:screenOrientation="portrait"
             android:label="Tab"/>
 
+        <activity
+            android:name=".module.KotlinActivity"
+            android:screenOrientation="portrait"
+            android:label="Kotlin"/>
+
     </application>
 
 </manifest>

@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas.add(new DesignItem("6", "Tab"));
 
+        mDatas.add(new DesignItem("7", "Kotlin"));
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(
                 MainActivity.this, LinearLayoutManager.VERTICAL, false);
