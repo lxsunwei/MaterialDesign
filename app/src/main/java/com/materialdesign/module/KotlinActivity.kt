@@ -3,6 +3,7 @@ package com.materialdesign.module
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.widget.TextView
 import com.materialdesign.R
 import com.materialdesign.utils.ToolbarUtils
 
@@ -18,7 +19,11 @@ class KotlinActivity : AppCompatActivity() {
         setContentView(R.layout.activity_kotlin);
 
         ToolbarUtils.show(this, findViewById(R.id.toolbar_kotlin) as Toolbar?, true);
-        ;
+
+        var mTvKotlin: TextView ?= findViewById(R.id.tv_kotlin) as TextView;
+
+        mTvKotlin?.text = "Kotlin";
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
