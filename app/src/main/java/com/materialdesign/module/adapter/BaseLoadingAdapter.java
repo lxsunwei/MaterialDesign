@@ -48,8 +48,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
 
         setSpanCount(recyclerView);
 
-        notifyLoading();
-
+        //notifyLoading();
     }
 
     private OnLoadingListener mOnLoadingListener;
@@ -67,6 +66,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * @param onLoadingListener onLoadingListener
      */
     public void setOnLoadingListener(OnLoadingListener onLoadingListener) {
+        setScrollListener(mRecyclerView);
         mOnLoadingListener = onLoadingListener;
     }
 
@@ -74,7 +74,6 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 加载完成
      */
     public void setLoadingComplete() {
-
         if (mTs.size() > 0 && mTs.getLast() == null) {
             mIsLoading = false;
             mTs.removeFromEnd(1);
@@ -87,8 +86,10 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      */
     public void setLoadingNoMore() {
         mIsLoading = false;
-        mLoadingViewHolder.progressBar.setVisibility(View.GONE);
-        mLoadingViewHolder.tvLoading.setText("已加载完！");
+        if (mLoadingViewHolder != null) {
+            mLoadingViewHolder.progressBar.setVisibility(View.GONE);
+            mLoadingViewHolder.tvLoading.setText("已加载完！");
+        }
     }
 
     /**
@@ -124,7 +125,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
     }
 
     /**
-     * 设置每个条目占用的列数
+     * 设置加载item占据一行
      *
      * @param recyclerView recycleView
      */
@@ -161,7 +162,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
      * 显示加载
      */
     private void notifyLoading() {
-        if (mTs.size() == 0 || mTs.getLast() != null) {
+        if (mTs.size() != 0 && mTs.getLast() != null) {
             mTs.addLast(null);
             notifyItemInserted(mTs.size() - 1);
         }
@@ -190,6 +191,7 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
 
                 if (!canScrollDown(recyclerView)) {
 
+                    //首次进入不加载
                     if (!mIsLoading && !mFirstEnter) {
 
                         notifyLoading();
@@ -276,14 +278,6 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
             onBindNormalViewHolder(holder, position);
         } else {
 
-            //首次进入不加载
-            if (mFirstEnter) {
-                mLoadingViewHolder.tvLoading.setText("已加载完");
-                mLoadingViewHolder.progressBar.setVisibility(View.GONE);
-
-                setScrollListener(mRecyclerView);
-            }
-
             if (mStaggeredGridLayoutManager != null) {
                 StaggeredGridLayoutManager.LayoutParams layoutParams =
                         new StaggeredGridLayoutManager.LayoutParams(
@@ -292,7 +286,6 @@ public abstract class BaseLoadingAdapter<T> extends RecyclerView.Adapter<Recycle
                 layoutParams.setFullSpan(true);
 
                 mLoadingViewHolder.llyLoading.setLayoutParams(layoutParams);
-
             }
         }
     }
