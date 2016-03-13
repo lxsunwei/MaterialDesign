@@ -3,6 +3,7 @@ package com.materialdesign.module;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -42,13 +43,13 @@ public class NetworkActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String s = "";
+                        Log.d("TAG", "------success: " + response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        String s = "";
+                        Log.d("TAG", "------error: " + error.toString());
                     }
                 });
     }
