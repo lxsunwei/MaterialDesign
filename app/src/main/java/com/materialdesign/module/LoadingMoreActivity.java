@@ -15,6 +15,10 @@ import com.materialdesign.module.adapter.DesignLoaderMoreAdapter;
 import com.materialdesign.module.adapter.BaseLoadingAdapter;
 import com.materialdesign.utils.ToolbarUtils;
 
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+
 /**
  * Created by sunwei on 2015/12/4.
  * Email: lx_sunwei@163.com.
@@ -27,7 +31,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private DesignLoaderMoreAdapter mDesignLoaderMoreAdapter;
     private CircularArray<DesignItem> mDatas;
-    private SwipeRefreshLayout mSwipeRefresh;
+    private PtrClassicFrameLayout mSwipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar_loading);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
-        mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        mSwipeRefresh = (PtrClassicFrameLayout) findViewById(R.id.swipeRefresh);
 
         ToolbarUtils.show(LoadingMoreActivity.this, mToolbar, true);
 
@@ -70,9 +74,16 @@ public class LoadingMoreActivity extends AppCompatActivity {
             }
         });
 
-        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+       /* mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                new RefreshAsyncTask().execute();
+            }
+        });*/
+
+        mSwipeRefresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
                 new RefreshAsyncTask().execute();
             }
         });
@@ -127,7 +138,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            mSwipeRefresh.setRefreshing(false);
+            mSwipeRefresh.refreshComplete();
         }
     }
 }

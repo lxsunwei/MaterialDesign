@@ -38,6 +38,7 @@ dependencies {
     compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
     compile 'com.android.support:support-annotations:23.2.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
 }
 buildscript {
     ext.kotlin_version = '1.0.0'

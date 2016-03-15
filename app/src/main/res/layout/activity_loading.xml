@@ -12,18 +12,26 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <!--<android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleView_loading"
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleView_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
 
 </LinearLayout>
