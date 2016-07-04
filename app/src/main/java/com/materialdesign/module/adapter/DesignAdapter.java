@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,7 @@ import android.widget.TextView;
 
 import com.materialdesign.R;
 import com.materialdesign.model.DesignItem;
-import com.materialdesign.module.ButtonColorActivity;
-import com.materialdesign.module.DataBindingActivity;
-import com.materialdesign.module.KotlinActivity;
-import com.materialdesign.module.LoadingMoreActivity;
 import com.materialdesign.module.MainActivity;
-import com.materialdesign.module.NetworkActivity;
-import com.materialdesign.module.PercentLayoutActivity;
-import com.materialdesign.module.TabActivity;
 
 import java.util.List;
 
@@ -67,45 +61,19 @@ public class DesignAdapter extends RecyclerView.Adapter<DesignAdapter.ViewHolder
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (designItem.id) {
-                    case "0": //ButtonColor
-                        Intent viewFlipper = new Intent(mContext, ButtonColorActivity.class);
-                        mContext.startActivity(viewFlipper);
-                        break;
-                    case "1": //PercentLayout
-                        Intent percentLayout = new Intent(mContext, PercentLayoutActivity.class);
-                        mContext.startActivity(percentLayout);
-                        break;
-                    case "2": //CustomTabs
-                        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                        builder.setToolbarColor(mContext.getResources().getColor(
-                                R.color.colorPrimary));
-                        builder.setShowTitle(true);
-                        CustomTabsIntent customTabsIntent = builder.build();
-                        customTabsIntent.launchUrl((MainActivity) mContext,
-                                Uri.parse("https://www.baidu.com"));
-                        break;
-                    case "3": //DataBinding
-                        Intent dataBinding = new Intent(mContext, DataBindingActivity.class);
-                        mContext.startActivity(dataBinding);
-                        break;
-                    case "4": //Loading
-                        Intent loading = new Intent(mContext, LoadingMoreActivity.class);
-                        mContext.startActivity(loading);
-                        break;
-                    case "5":
-                        Intent network = new Intent(mContext, NetworkActivity.class);
-                        mContext.startActivity(network);
-                        break;
-                    case "6":
-                        Intent tab = new Intent(mContext, TabActivity.class);
-                        mContext.startActivity(tab);
-                        break;
-                    case "7":
-                        Intent kotlin = new Intent(mContext, KotlinActivity.class);
-                        mContext.startActivity(kotlin);
-                        break;
+                if (TextUtils.equals(designItem.id, "2")) {
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(mContext.getResources().getColor(
+                            R.color.colorPrimary));
+                    builder.setShowTitle(true);
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl((MainActivity) mContext,
+                            Uri.parse("https://www.baidu.com"));
+                    return;
                 }
+
+                Intent buttonIntent = new Intent(designItem.action);
+                mContext.startActivity(buttonIntent);
 
             }
         });

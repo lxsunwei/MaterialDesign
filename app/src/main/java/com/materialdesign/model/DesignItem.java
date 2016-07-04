@@ -9,11 +9,13 @@ public class DesignItem {
 
     public String id;
     public String name;
+    public String action;
 
     public DesignItem() {}
 
-    public DesignItem(String id, String name) {
+    public DesignItem(String id, String name, String action) {
         this.id = id;
         this.name = name;
+        this.action = action;
     }
 }

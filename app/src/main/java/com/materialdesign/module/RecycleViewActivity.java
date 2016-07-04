@@ -3,7 +3,6 @@ package com.materialdesign.module;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.CircularArray;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -24,7 +23,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * Email: lx_sunwei@163.com.
  * Description: recycleView 加载更多
  */
-public class LoadingMoreActivity extends AppCompatActivity {
+public class RecycleViewActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
@@ -43,19 +42,19 @@ public class LoadingMoreActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleView_loading);
         mSwipeRefresh = (PtrClassicFrameLayout) findViewById(R.id.swipeRefresh);
 
-        ToolbarUtils.show(LoadingMoreActivity.this, mToolbar, true);
+        ToolbarUtils.show(RecycleViewActivity.this, mToolbar, true);
 
         mDatas = new CircularArray<>();
 
         for (int i = 0; i < 29; i++) {
-            mDatas.addLast(new DesignItem("" + i, "" + i));
+            mDatas.addLast(new DesignItem("" + i, "" + i, ""));
         }
 
         /*mLayoutManager = new LinearLayoutManager(
-                LoadingMoreActivity.this, LinearLayoutManager.VERTICAL, false);*/
+                RecycleViewActivity.this, LinearLayoutManager.VERTICAL, false);*/
 
         /*mLayoutManager = new GridLayoutManager(
-                LoadingMoreActivity.this, 3, GridLayoutManager.VERTICAL, false);*/
+                RecycleViewActivity.this, 3, GridLayoutManager.VERTICAL, false);*/
 
         mLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
 
@@ -110,7 +109,7 @@ public class LoadingMoreActivity extends AppCompatActivity {
 
             int size = mDatas.size();
             for (int i = size + 1; i < size + 6; i++) {
-                mDatas.addLast(new DesignItem("" + i, i + ""));
+                mDatas.addLast(new DesignItem("" + i, i + "", ""));
             }
             mDesignLoaderMoreAdapter.notifyItemRangeInserted(mDatas.size() - 5, 5);
         }

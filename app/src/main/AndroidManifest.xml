@@ -25,37 +25,73 @@
         <activity
             android:name="com.materialdesign.module.ButtonColorActivity"
             android:screenOrientation="portrait"
-            android:label="ButtonColor"/>
+            android:label="ButtonColor" >
+            <intent-filter>
+                <action android:name="com.materialdesign.BUTTON_COLOR"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.materialdesign.module.PercentLayoutActivity"
             android:screenOrientation="portrait"
-            android:label="Percent Layout"
-            android:parentActivityName=".module.MainActivity"/>
+            android:label="PercentLayout"
+            android:parentActivityName=".module.MainActivity">
+            <intent-filter>
+                <action android:name="com.materialdesign.PERCENT_LAYOUT"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.materialdesign.module.DataBindingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="DataBinding">
+            <intent-filter>
+                <action android:name="com.materialdesign.DATA_BINDING"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
-            android:name="com.materialdesign.module.LoadingMoreActivity"
+            android:name="com.materialdesign.module.RecycleViewActivity"
             android:screenOrientation="portrait"
-            android:label="Loading More"/>
+            android:label="RecycleView">
+            <intent-filter>
+                <action android:name="com.materialdesign.RECYCLE_VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.materialdesign.module.NetworkActivity"
             android:screenOrientation="portrait"
-            android:label="Network"/>
+            android:label="Network">
+            <intent-filter>
+                <action android:name="com.materialdesign.NETWORK"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".module.TabActivity"
             android:screenOrientation="portrait"
-            android:label="Tab"/>
+            android:label="Tabs">
+            <intent-filter>
+                <action android:name="com.materialdesign.TABS"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".module.KotlinActivity"
             android:screenOrientation="portrait"
-            android:label="Kotlin"/>
+            android:label="Kotlin">
+            <intent-filter>
+                <action android:name="com.materialdesign.KOTLIN"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

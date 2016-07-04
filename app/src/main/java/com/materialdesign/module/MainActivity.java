@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
 
+    public static String PACKAGE_NAME = "com.materialdesign";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,21 +52,21 @@ public class MainActivity extends AppCompatActivity {
 
         mDatas = new ArrayList<>();
 
-        mDatas.add(new DesignItem("0", "ButtonColor"));
+        mDatas.add(new DesignItem("0", "ButtonColor", PACKAGE_NAME + ".BUTTON_COLOR"));
 
-        mDatas.add(new DesignItem("1", "PercentLayout"));
+        mDatas.add(new DesignItem("1", "PercentLayout", PACKAGE_NAME + ".PERCENT_LAYOUT"));
 
-        mDatas.add(new DesignItem("2", "CustomTabs"));
+        mDatas.add(new DesignItem("2", "CustomTabs", PACKAGE_NAME + ".CUSTOM_TABS"));
 
-        mDatas.add(new DesignItem("3", "DataBinding"));
+        mDatas.add(new DesignItem("3", "DataBinding", PACKAGE_NAME + ".DATA_BINDING"));
 
-        mDatas.add(new DesignItem("4", "RecycleView Loading More"));
+        mDatas.add(new DesignItem("4", "RecycleView", PACKAGE_NAME + ".RECYCLE_VIEW"));
 
-        mDatas.add(new DesignItem("5", "Network"));
+        mDatas.add(new DesignItem("5", "Network", PACKAGE_NAME + ".NETWORK"));
 
-        mDatas.add(new DesignItem("6", "Tab"));
+        mDatas.add(new DesignItem("6", "Tabs", PACKAGE_NAME + ".TABS"));
 
-        mDatas.add(new DesignItem("7", "Kotlin"));
+        mDatas.add(new DesignItem("7", "Kotlin", PACKAGE_NAME + ".KOTLIN"));
 
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(
