@@ -22,7 +22,7 @@ import java.util.TreeMap;
 public class NetworkActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private TextView mTv;
+    private TextView mTvNetwork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class NetworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_network);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar_network);
-        mTv = (TextView) findViewById(R.id.tv_network);
+        mTvNetwork = (TextView) findViewById(R.id.tv_network);
 
         ToolbarUtils.show(NetworkActivity.this, mToolbar, true);
 
@@ -44,12 +44,14 @@ public class NetworkActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("TAG", "------success: " + response);
+                        mTvNetwork.setText(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("TAG", "------error: " + error.toString());
+                        mTvNetwork.setText(error.toString());
                     }
                 });
     }

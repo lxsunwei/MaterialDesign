@@ -39,6 +39,7 @@ dependencies {
     compile 'com.android.support:support-annotations:23.2.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'io.reactivex:rxjava:1.1.6'
 }
 buildscript {
     ext.kotlin_version = '1.0.0'

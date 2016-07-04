@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.materialdesign.R;
 import com.materialdesign.databinding.ActivityDataBindingBinding;
@@ -11,12 +12,17 @@ import com.materialdesign.event.UserHandles;
 import com.materialdesign.model.User;
 import com.materialdesign.utils.ToolbarUtils;
 
+import rx.Observable;
+import rx.Subscriber;
+
 /**
  * Created by sunwei on 2015/11/9.
  * Email: lx_sunwei@163.com.
  * Description: 数据绑定
  */
 public class DataBindingActivity extends AppCompatActivity {
+
+    private static final String TAG = "DataBindingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
