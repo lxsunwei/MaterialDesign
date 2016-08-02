@@ -2,6 +2,8 @@ package com.materialdesign;
 
 import android.app.Application;
 
+
+import com.facebook.stetho.Stetho;
 import com.materialdesign.utils.CrashHandler;
 
 /**
@@ -17,5 +19,6 @@ public class MainApplication extends Application{
 
         CrashHandler crashHandler = CrashHandler.getInstance();
         //crashHandler.init(getApplicationContext());
+        Stetho.initializeWithDefaults(this);
     }
 }
